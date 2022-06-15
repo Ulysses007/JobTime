@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "936496987206",
+    "project_id": "jobtime-36c62",
+    "storage_bucket": "jobtime-36c62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936496987206:android:e31a88321987f7e2429e47",
+        "android_client_info": {
+          "package_name": "br.com.ulysses_dev.jot_timer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936496987206-fphfrht9p7okp04ejnvvunid1mm4bg5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNUHF0wiHMBYR_o85oVxsqwct8cD_CHrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936496987206-fphfrht9p7okp04ejnvvunid1mm4bg5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
