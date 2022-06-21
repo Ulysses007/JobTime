@@ -1,2 +1,2 @@
 # JobTime_
- Projeto flutter para controler de projetos
+ Projeto flutter para controle de projetos, Usando Bloc e Modular. 
