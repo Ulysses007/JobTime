@@ -29,10 +29,8 @@ class ButtonWithLoader<B extends StateStreamable<S>, S>
           }
           return Stack(
             children: [
-              Align(
-alignment:  Alignment.center,
-child: Text(label)),
-             const Align(
+              Align(alignment: Alignment.center, child: Text(label)),
+              const Align(
                 alignment: Alignment.centerRight,
                 child: CircularProgressIndicator.adaptive(
                   backgroundColor: Colors.white,
