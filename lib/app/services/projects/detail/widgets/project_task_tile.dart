@@ -6,12 +6,31 @@ class ProjectTaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Ulysses Martins',
-            style: TextStyle(color: Colors.amber),
+Text('Ulysses Siqueira'), 
+          RichText(
+            text: TextSpan(
+              children: const [
+                TextSpan(
+                    text: '     Duração', style: TextStyle(color: Colors.grey)),
+                TextSpan(text: ''),
+                TextSpan(
+                  text: '4H',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
