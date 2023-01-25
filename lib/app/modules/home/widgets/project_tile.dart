@@ -10,18 +10,23 @@ class ProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxHeight: 90),
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.blueAccent, width: 4),
-      ),
-      child: Column(
-        children: [
-          _ProjectName(projectModel: projectModel),
-          _ProjectProgress(projectModel: projectModel),
-        ],
+    return InkWell(
+      onTap: () {
+        Modular.to.pushNamed('/project/detail', arguments: projectModel);
+      },
+      child: Container(
+        constraints: BoxConstraints(maxHeight: 90),
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blueAccent, width: 4),
+        ),
+        child: Column(
+          children: [
+            _ProjectName(projectModel: projectModel),
+            _ProjectProgress(projectModel: projectModel),
+          ],
+        ),
       ),
     );
   }
@@ -33,23 +38,18 @@ class _ProjectName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Modular.to.pushNamed('/project/detail', arguments: projectModel);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(projectModel.name),
-            Icon(
-              JobTimeIcons.arrow_right,
-              color: Theme.of(context).primaryColor,
-              size: 20,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(projectModel.name),
+          Icon(
+            JobTimeIcons.arrow_right,
+            color: Theme.of(context).primaryColor,
+            size: 20,
+          ),
+        ],
       ),
     );
   }
