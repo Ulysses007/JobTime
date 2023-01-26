@@ -7,10 +7,14 @@ part 'project_detail_state.dart';
 
 class ProjectDetailController extends Cubit<ProjectDetailState> {
 
-ProjectDetailController(): super(ProjectDetailState.initial());
+ProjectDetailController(): super(const ProjectDetailState.initial());
 
 void setProject(ProjectModel projectModel){
-emit(state.copyWith(projectModel: projectModel, status: ProjectDetailStatus.loading));
+emit(state.copyWith(projectModel: projectModel, status: ProjectDetailStatus.complete));
+
+
+
+
 }
   
 }

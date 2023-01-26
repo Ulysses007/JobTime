@@ -15,7 +15,9 @@ class ProjectDetailModule extends Module {
         ChildRoute('/', child: (context, args) {
           final ProjectModel projectModel = args.data;
 
-return ProjectDetailPage(controller: Modular.get(),);
+          return ProjectDetailPage(
+            controller: Modular.get()..setProject(projectModel),
+          );
         })
       ];
 }

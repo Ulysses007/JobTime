@@ -1,8 +1,12 @@
 import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jot_timer/app/core/ui/job_time_icons_.dart';
 import 'package:jot_timer/app/modules/project/register/controller/project_register_controller.dart';
 import 'package:jot_timer/app/services/projects/detail/controller/project_detail_controller.dart';
+import 'package:jot_timer/app/services/projects/detail/widgets/project_detail_appbar.dart';
+import 'package:jot_timer/app/services/projects/detail/widgets/project_pie_chart.dart';
+import 'package:jot_timer/app/services/projects/detail/widgets/project_task_tile.dart';
 import 'package:jot_timer/app/view_models/project_model.dart';
 
 class ProjectDetailPage extends StatelessWidget {
@@ -26,64 +30,62 @@ class ProjectDetailPage extends StatelessWidget {
           switch (state.status) {
             case ProjectDetailStatus.initial:
               return const Center(
-                child: Text('Carregando Projeto'),
+                child: const Text('Carregando Projeto'),
               );
             case ProjectDetailStatus.loading:
               return const Center(
                 child: CircularProgressIndicator(),
               );
             case ProjectDetailStatus.complete:
-              break;
+              if (projectModel != null) {
+                return _bildProjectDetail(context, projectModel);
+              }
+              return const Center(
+                child: Text('Erro ao carregar projeto'),
+              );
             case ProjectDetailStatus.failure:
-              break;
-
-            default:
+              if (projectModel != null) {
+                return _bildProjectDetail(context, projectModel);
+              }
+              return const Center(
+                child: Text('Erro ao carregar projeto'),
+              );
           }
-
-          return _bildProjectDetail(context, projectModel!);
         },
       ),
     );
   }
 
   Widget _bildProjectDetail(BuildContext context, ProjectModel projectModel) {
-    return Scaffold();
+    return CustomScrollView(
+      slivers: [
+        ProjectDetailAppbar(projectModel: projectModel,),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, bottom: 50.0),
+              child: ProjectPieChart(),
+            ),
+            ProjectTaskTile(),
+            ProjectTaskTile(),
+            ProjectTaskTile(),
+          ]),
+        ),
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: Icon(JobTimeIcons.ok),
+                label: Text('Finalizar projeto'),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
-
-
-/*
-
- return CustomScrollView(
-            slivers: [
-              ProjectDetailAppbar(),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, bottom: 50.0),
-                    child: ProjectPieChart(),
-                  ),
-                  ProjectTaskTile(),
-                  ProjectTaskTile(),
-                  ProjectTaskTile(),
-                ]),
-              ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(JobTimeIcons.ok),
-                      label: Text('Finalizar projeto'),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-
-
-*/
