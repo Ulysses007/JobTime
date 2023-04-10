@@ -35,7 +35,7 @@ class ProjectDetailAppbar extends SliverAppBar {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${projectModel.tasks.length}Task'),
+                          Text('${projectModel.tasks.length} Tarefa'),
                           Visibility(
                               visible: projectModel.status !=
                                   ProjectStatus.finalizado,
@@ -77,7 +77,7 @@ class _NewTasks extends StatelessWidget {
               ),
             ),
           ),
-          const Text('Adicionar Taks')
+          const Text('Adicionar tarefa')
         ],
       ),
     );

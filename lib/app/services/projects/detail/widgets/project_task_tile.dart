@@ -15,7 +15,7 @@ class ProjectTaskTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-Text('Ulysses Siqueira'), 
+          Text('Ulysses Siqueira'),
           RichText(
             text: TextSpan(
               children: const [
