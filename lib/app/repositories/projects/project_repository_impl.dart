@@ -5,6 +5,7 @@ import 'package:jot_timer/app/core/exceptions/failure.dart';
 import 'package:jot_timer/app/core/ui/database/database.dart';
 import 'package:jot_timer/app/entities/project.dart';
 import 'package:jot_timer/app/entities/project_status.dart';
+import 'package:jot_timer/app/entities/project_task.dart';
 
 import 'project_repository.dart';
 
@@ -32,5 +33,28 @@ class ProjectRepositoryImpl implements ProjectRepository {
     final projects =
         await connection.projects.filter().statusEqualTo(status).findAll();
     return projects;
+  }
+
+  @override
+  Future<Project> addTask(int projectId, ProjectTask task) async {
+    final connection = await _database.openConnection();
+    final project = await findById(projectId);
+
+    project.tasks.add(task);
+
+    await connection.writeTxn((isar) => project.tasks.save());
+
+    return project;
+  }
+
+  @override
+  Future<Project> findById(int projectId) async {
+    final connection = await _database.openConnection();
+    final project = await connection.projects.get(projectId);
+
+    if (project == null) {
+      throw Failure(message: 'Projeto não encontrado');
+    }
+    return project;
   }
 }
