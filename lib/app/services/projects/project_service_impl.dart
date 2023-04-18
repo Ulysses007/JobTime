@@ -45,5 +45,8 @@ return ProjectModel.fromEntity(project);
     return ProjectModel.fromEntity(project);
   }
   
+  @override
+  Future<void> finish(int projectId) => _projectRepository.finish(projectId);
+  
 
 }

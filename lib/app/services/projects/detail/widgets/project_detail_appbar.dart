@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:jot_timer/app/entities/project_status.dart';
+import 'package:jot_timer/app/services/projects/detail/controller/project_detail_controller.dart';
 import 'package:jot_timer/app/view_models/project_model.dart';
 
 class ProjectDetailAppbar extends SliverAppBar {
@@ -61,8 +62,9 @@ class _NewTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Modular.to.pushNamed('/project/task/', arguments: projectModel);
+      onTap: () async {
+        await Modular.to.pushNamed('/project/task/', arguments: projectModel);
+        Modular.get<ProjectDetailController>().updateProject();
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

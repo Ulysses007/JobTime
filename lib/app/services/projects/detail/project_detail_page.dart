@@ -2,6 +2,7 @@ import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jot_timer/app/core/ui/job_time_icons_.dart';
+import 'package:jot_timer/app/entities/project_status.dart';
 import 'package:jot_timer/app/modules/project/register/controller/project_register_controller.dart';
 import 'package:jot_timer/app/services/projects/detail/controller/project_detail_controller.dart';
 import 'package:jot_timer/app/services/projects/detail/widgets/project_detail_appbar.dart';
@@ -57,18 +58,27 @@ class ProjectDetailPage extends StatelessWidget {
   }
 
   Widget _bildProjectDetail(BuildContext context, ProjectModel projectModel) {
+    final totalTasks = projectModel.tasks.fold<int>(0, (totalValue, task) {
+      return totalValue += task.duration;
+    });
     return CustomScrollView(
       slivers: [
-        ProjectDetailAppbar(projectModel: projectModel,),
+        ProjectDetailAppbar(
+          projectModel: projectModel,
+        ),
         SliverList(
           delegate: SliverChildListDelegate([
             Padding(
               padding: const EdgeInsets.only(top: 50.0, bottom: 50.0),
-              child: ProjectPieChart(),
+              child: ProjectPieChart(
+                  projectEstimate: projectModel.estimate,
+                  totalTasks: totalTasks),
             ),
-            ProjectTaskTile(),
-            ProjectTaskTile(),
-            ProjectTaskTile(),
+            ...projectModel.tasks
+                .map((task) => ProjectTaskTile(
+                      task: task,
+                    ))
+                .toList(),
           ]),
         ),
         SliverFillRemaining(
@@ -77,10 +87,15 @@ class ProjectDetailPage extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(JobTimeIcons.ok),
-                label: Text('Finalizar projeto'),
+              child: Visibility(
+                visible: projectModel.status != ProjectStatus.finalizado,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    controller.finishProject();
+                  },
+                  icon: Icon(JobTimeIcons.ok),
+                  label: Text('Finalizar projeto'),
+                ),
               ),
             ),
           ),
